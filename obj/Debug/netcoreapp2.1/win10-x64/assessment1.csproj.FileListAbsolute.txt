@@ -1,0 +1,14 @@
+C:\Users\Brendan-PC\source\repos\assessment1\bin\Debug\netcoreapp2.1\win10-x64\hostpolicy.dll
+C:\Users\Brendan-PC\source\repos\assessment1\bin\Debug\netcoreapp2.1\win10-x64\hostfxr.dll
+C:\Users\Brendan-PC\source\repos\assessment1\bin\Debug\netcoreapp2.1\win10-x64\assessment1.exe
+C:\Users\Brendan-PC\source\repos\assessment1\bin\Debug\netcoreapp2.1\win10-x64\assessment1.deps.json
+C:\Users\Brendan-PC\source\repos\assessment1\bin\Debug\netcoreapp2.1\win10-x64\assessment1.runtimeconfig.json
+C:\Users\Brendan-PC\source\repos\assessment1\bin\Debug\netcoreapp2.1\win10-x64\assessment1.runtimeconfig.dev.json
+C:\Users\Brendan-PC\source\repos\assessment1\bin\Debug\netcoreapp2.1\win10-x64\assessment1.dll
+C:\Users\Brendan-PC\source\repos\assessment1\bin\Debug\netcoreapp2.1\win10-x64\assessment1.pdb
+C:\Users\Brendan-PC\source\repos\assessment1\obj\Debug\netcoreapp2.1\win10-x64\assessment1.csprojAssemblyReference.cache
+C:\Users\Brendan-PC\source\repos\assessment1\obj\Debug\netcoreapp2.1\win10-x64\assessment1.csproj.CoreCompileInputs.cache
+C:\Users\Brendan-PC\source\repos\assessment1\obj\Debug\netcoreapp2.1\win10-x64\assessment1.AssemblyInfoInputs.cache
+C:\Users\Brendan-PC\source\repos\assessment1\obj\Debug\netcoreapp2.1\win10-x64\assessment1.AssemblyInfo.cs
+C:\Users\Brendan-PC\source\repos\assessment1\obj\Debug\netcoreapp2.1\win10-x64\assessment1.dll
+C:\Users\Brendan-PC\source\repos\assessment1\obj\Debug\netcoreapp2.1\win10-x64\assessment1.pdb

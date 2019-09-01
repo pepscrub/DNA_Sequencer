@@ -1,16 +1,16 @@
 ﻿using System;
 using System.IO;
 
-namespace assessment1
+namespace level1
 {
     public class getFile
     {
         /*
-            Get input returns an string array broken by spaces
-         */
-        public static string[] getInput()
+            Get input returns an string array broken by spaces so we can parse arguments
+        */
+        public static string[] getInput() 
         {
-            Console.WriteLine("Please enter a command:");
+            Console.WriteLine("Query a fasta file.\nYou query should look similar to the following: Search16s -level1 16S.fasta 273 1");
             string[] input = {};
             input = Console.ReadLine().Split(' ');
             return input;
@@ -23,9 +23,25 @@ namespace assessment1
         {
             // Checking line number is int as well as sequences
             int t; // temp for tryparse
-            if((i == 4 || i == 5) && !int.TryParse(arg, out t)) return true; 
-            else if(string.IsNullOrEmpty(arg)) return true;
-            else return false;
+            bool err = false;
+            if(i > 5)
+            {
+                Console.WriteLine("Too many arguments were supplied"); 
+                err = true;
+            }
+            else if((i == 4 || i == 5) && !int.TryParse(arg, out t))
+            {
+                Console.WriteLine("\"{0}\" argument: {1} was a letter and not a number", arg, i);
+                err = true;
+            }
+            else if(string.IsNullOrEmpty(arg))
+            {
+                Console.WriteLine("Arguments cannot be empty arg: {i}", i);
+                err = true;
+            }
+            else err = false;
+
+            return err;
         }
         /*
             reads the file in the current file system 
@@ -33,10 +49,37 @@ namespace assessment1
         */
         static string[] readFile(string file, int count, string type)
         {
+            string[] errMsg = {}; // Error message is empty since we check if the array is empty after the read file
+            if(!File.Exists(Directory.GetCurrentDirectory()+"/"+file))
+            {
+                Console.WriteLine("{0} does not exist, or is not in the current directory.", file);
+                return errMsg;
+            }
+            else if(file.Split(".")[1] != "fasta")
+            {
+                Console.WriteLine("{0} is the incorrect file type. Expected .fasta", file);
+                return errMsg;
+            }
             string dir = Directory.GetCurrentDirectory()+"/"+file;
             string[] fileData = new string[2];
-            if(type == "-level1")
+            int sortType;
+            // Removing string argument and converting to int (May be able to loop through later instead)
+            Int32.TryParse(type.Remove(0,6), out sortType);
+            if(sortType > 3 || sortType < 1) Console.WriteLine("Invalid sorting level! The sort types are 1,2,3.\nSupplied level: {0}", sortType); // Error handling
+            if(sortType == 1)
             {
+                fileData[0] = File.ReadAllLines(dir)[count-1];  // Meta Data
+                fileData[1] = File.ReadAllLines(dir)[count];    // Actual Sequence
+            }
+            else if(sortType == 2)
+            {
+                Console.WriteLine("Level 2 sorting is not currently implemented and is defaulting to level 1 behaviours");
+                fileData[0] = File.ReadAllLines(dir)[count-1];  // Meta Data
+                fileData[1] = File.ReadAllLines(dir)[count];    // Actual Sequence
+            }
+            else if(sortType == 3)
+            {
+                Console.WriteLine("Level 3 sorting is not currently implemented and is defaulting to level 1 behaviours");
                 fileData[0] = File.ReadAllLines(dir)[count-1];  // Meta Data
                 fileData[1] = File.ReadAllLines(dir)[count];    // Actual Sequence
             }
@@ -66,23 +109,10 @@ namespace assessment1
             // Error handling
             foreach( var arg in  input)
             {
-                if(invalidArg(arg, i)) // Checks to see if arguments are empty and if arg 4-5 are ints
-                {
-                    error = true;
-                    break;
-                }
-                else i++;
+                error = invalidArg(arg, i);
+                i++;
             }
-            if(i < 5)
-            {
-                Console.WriteLine("Insuffient arguments were supplied! \nYour query should look appear like the follwing: program -level1 file.fasta 273 10");
-                return;
-            }
-            else if(error)
-            {
-                Console.WriteLine("There was an invalid argument!\n\"{0}\" Is not a valid argument!", input[i]);
-                return;
-            }
+            if(error) return;
             
             // Defining our input arguments after error handling is completed
             
@@ -93,14 +123,31 @@ namespace assessment1
             Int32.TryParse(input[4], out sequences);
 
             string[] lines = readFile(file, lineNum, flag);
+            if(lines == null) return; // If the lines array is empty (Should contain metadata at the very least)
+            File.WriteAllLines(Directory.GetCurrentDirectory()+"/"+"query.txt", lines);
         }
 
+    }
+
+    class readQueryFile
+    {
+        public static void read()
+        {
+            string[] query = File.ReadAllLines(Directory.GetCurrentDirectory()+"/query.txt");
+            foreach(var line in query)
+            {
+                Console.WriteLine(line);
+            }
+        }
     }
     class Program
     {
         static void Main(string[] args)
         {
             getFile.init();
+            readQueryFile.read();
+            Console.WriteLine("Press enter to exit");
+            Console.ReadLine();
         }
     }
 }
